@@ -12,13 +12,13 @@ export default function Invoices() {
       <form className="grid gap-4 max-w-xs">
         <div>
           <Label htmlFor="name" className="block mb-2 text-sm font-semibold">
-            Biling Name
+            Billing Name
           </Label>
           <Input name="name" id="name" type="text" />
         </div>
         <div>
           <Label htmlFor="email" className="block mb-2 text-sm font-semibold">
-            Biling Email
+            Billing Email
           </Label>
           <Input name="email" id="email" type="email" />
         </div>
