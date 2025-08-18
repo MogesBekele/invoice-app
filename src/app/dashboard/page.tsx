@@ -20,7 +20,7 @@ export default function Dashboard() {
         <p>
           <Button variant="ghost" className="inline-flex gap-2" asChild>
             <Link href="/invoices/new">
-              <CirclePlus className="h-4 w-4" />
+              <CirclePlus className="h-4 w-4 hover:cursor-pointer" />
               Create Invoices
             </Link>
           </Button>
