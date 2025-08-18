@@ -4,16 +4,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { createAction } from "@/app/actions";
 export default async function Invoices() {
-  const result = await db.execute(sql`SELECT current_database()`);
-  console.log(result)
   return (
     <main className=" flex flex-col gap-6 justify-center h-full sm:p-10 max-w-5xl mx-auto my-12">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold"> Create Invoices</h1>
       </div>
-      {JSON.stringify(result)}
-      <form className="grid gap-4 max-w-xs">
+
+      <form action={createAction} className="grid gap-4 max-w-xs">
         <div>
           <Label htmlFor="name" className="block mb-2 text-sm font-semibold">
             Billing Name
