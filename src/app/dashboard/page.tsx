@@ -11,9 +11,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {db} from "@/db"
+import { Invoices } from "@/db/schema";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const results = await db.select().from(Invoices);
+
+  
   return (
+
     <main className=" flex flex-col gap-6 justify-center h-full text-center max-w-5xl mx-auto my-12">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold">Invoices</h1>
@@ -39,21 +45,26 @@ export default function Dashboard() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium text-left p-4">
-              <span className="font-semibold">12/11/2024</span>
-            </TableCell>
-            <TableCell className="text-left p-4">
-              <span className="font-semibold">Acme Inc</span>
-            </TableCell>
-            <TableCell className="text-left p-4">LcYlF@example.com</TableCell>
-            <TableCell className="text-center p-4">
-              <Badge className="rounded-full ">Open</Badge>
-            </TableCell>
-            <TableCell className="text-right">
-              <span className="font-semibold">Birr 250.00</span>
-            </TableCell>
-          </TableRow>
+          {results.map(result=>{
+            return(
+              <TableRow key={result.id}>
+                <TableCell className="font-medium text-left p-4">
+                  <span className="font-semibold"></span>
+                </TableCell>
+                <TableCell className="text-left p-4">
+                  <span className="font-semibold">Acme Inc</span>
+                </TableCell>
+                <TableCell className="text-left p-4">LcYlF@example.com</TableCell>
+                <TableCell className="text-center p-4">
+                  <Badge className="rounded-full ">{result.status}</Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <span className="font-semibold">Birr {result.value/100}</span>
+                </TableCell>
+              </TableRow>
+            )
+          })}
+         
         </TableBody>
       </Table>
     </main>
