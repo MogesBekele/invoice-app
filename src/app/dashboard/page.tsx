@@ -48,18 +48,18 @@ export default async function Dashboard() {
           {results.map(result=>{
             return(
               <TableRow key={result.id}>
-                <TableCell className="font-medium text-left p-4">
-                  <span className="font-semibold"></span>
+                <TableCell className="font-medium text-left p-0 ">
+                  <Link href={`/invoices/${result.id}`} className="p-4 font-semibold block">{new Date(result.createTs).toDateString()}</Link>
                 </TableCell>
-                <TableCell className="text-left p-4">
-                  <span className="font-semibold">Acme Inc</span>
+                <TableCell className="text-left p-0 ">
+                  <Link href={`/invoices/${result.id}`} className="font-semibold p-4 block">Acme Inc</Link>
                 </TableCell>
-                <TableCell className="text-left p-4">LcYlF@example.com</TableCell>
-                <TableCell className="text-center p-4">
-                  <Badge className="rounded-full ">{result.status}</Badge>
+                <TableCell className="text-left p-0">LcYlF@example.com</TableCell>
+                <TableCell className="text-center p-0">
+               <Link className="block p-4" href={ `/invoices/${result.id}`}>   <Badge className="rounded-full ">{result.status}</Badge></Link>
                 </TableCell>
-                <TableCell className="text-right">
-                  <span className="font-semibold">Birr {result.value/100}</span>
+                <TableCell className="text-right p-0" >
+                  <Link href={`/invoices/${result.id}`} className="font-semibold block p-4">Birr {(result.value/100).toFixed(2)}</Link>
                 </TableCell>
               </TableRow>
             )
