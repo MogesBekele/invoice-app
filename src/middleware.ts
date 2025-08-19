@@ -6,7 +6,9 @@ const isProtected = createRouteMatcher([
   // "/invoices/:invoiceId",
   // "/invoices/new",
 ]);
-export default clerkMiddleware((auth, req) => {
+export default clerkMiddleware((auth, request) => {
+
+  
   // const session = auth(); // might be null
   // //const userId = session?.userId; // safe access
 
@@ -15,6 +17,7 @@ export default clerkMiddleware((auth, req) => {
   // }
 
   // return undefined;
+  
 });
 
 export const config = {
