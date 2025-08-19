@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {cn} from '@/lib/utils'
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { db } from "@/db";
 
@@ -47,7 +47,7 @@ export default async function Dashboard() {
         <TableBody>
           {results.map((result) => {
             return (
-              <TableRow key={result.id}>
+              <TableRow key={result.id} className=" hover:bg-gray-200">
                 <TableCell className="font-medium text-left p-0 ">
                   <Link
                     href={`/invoices/${result.id}`}
@@ -65,7 +65,10 @@ export default async function Dashboard() {
                   </Link>
                 </TableCell>
                 <TableCell className="text-left p-0">
-                  LcYlF@example.com
+                  <Link className="block p-4" href={`/invoices/${result.id}`}>
+                    {" "}
+                    LcYlF@example.com
+                  </Link>
                 </TableCell>
                 <TableCell className="text-center p-0">
                   <Link className="block p-4" href={`/invoices/${result.id}`}>
