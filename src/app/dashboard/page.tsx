@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {cn} from '@/lib/utils'
 import Link from "next/link";
-import {db} from "@/db"
+import { db } from "@/db";
+
 import { Invoices } from "@/db/schema";
 
 export default async function Dashboard() {
   const results = await db.select().from(Invoices);
 
-  
   return (
-
     <main className=" flex flex-col gap-6 justify-center h-full text-center max-w-5xl mx-auto my-12">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold">Invoices</h1>
@@ -45,26 +45,55 @@ export default async function Dashboard() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {results.map(result=>{
-            return(
+          {results.map((result) => {
+            return (
               <TableRow key={result.id}>
                 <TableCell className="font-medium text-left p-0 ">
-                  <Link href={`/invoices/${result.id}`} className="p-4 font-semibold block">{new Date(result.createTs).toDateString()}</Link>
+                  <Link
+                    href={`/invoices/${result.id}`}
+                    className="p-4 font-semibold block"
+                  >
+                    {new Date(result.createTs).toDateString()}
+                  </Link>
                 </TableCell>
                 <TableCell className="text-left p-0 ">
-                  <Link href={`/invoices/${result.id}`} className="font-semibold p-4 block">Acme Inc</Link>
+                  <Link
+                    href={`/invoices/${result.id}`}
+                    className="font-semibold p-4 block"
+                  >
+                    Acme Inc
+                  </Link>
                 </TableCell>
-                <TableCell className="text-left p-0">LcYlF@example.com</TableCell>
+                <TableCell className="text-left p-0">
+                  LcYlF@example.com
+                </TableCell>
                 <TableCell className="text-center p-0">
-               <Link className="block p-4" href={ `/invoices/${result.id}`}>   <Badge className="rounded-full ">{result.status}</Badge></Link>
+                  <Link className="block p-4" href={`/invoices/${result.id}`}>
+                    {" "}
+                    <Badge
+                      className={cn(
+                        `rounded-full`,
+                        result.status === "open" && "bg-blue-500",
+                        result.status === "paid" && "bg-green-600",
+                        result.status === "void" && "bg-zinc-500",
+                        result.status === "uncollectible" && "bg-red-500"
+                      )}
+                    >
+                      {result.status}
+                    </Badge>
+                  </Link>
                 </TableCell>
-                <TableCell className="text-right p-0" >
-                  <Link href={`/invoices/${result.id}`} className="font-semibold block p-4">Birr {(result.value/100).toFixed(2)}</Link>
+                <TableCell className="text-right p-0">
+                  <Link
+                    href={`/invoices/${result.id}`}
+                    className="font-semibold block p-4"
+                  >
+                    Birr {(result.value / 100).toFixed(2)}
+                  </Link>
                 </TableCell>
               </TableRow>
-            )
+            );
           })}
-         
         </TableBody>
       </Table>
     </main>
