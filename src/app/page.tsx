@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex flex-col h-screen bg-gradient-to-b from-white to-cyan-50 text-gray-900">
+    <main className="flex flex-col h-screen bg-gradient-to-b text-gray-900">
       
       {/* Middle hero section */}
-      <div className="flex flex-col h-full gap-6 items-center justify-center">
-        <h1 className="text-5xl font-bold text-cyan-800 text-center">
+      <div className="flex flex-col max-sm:my-[-150px] sm:my-[-100px] h-full gap-6 items-center justify-center">
+        <h1 className="text-5xl  font-bold text-cyan-800 text-center">
           Welcome to Invoicing App
         </h1>
         <p className="text-lg text-gray-600 text-center">

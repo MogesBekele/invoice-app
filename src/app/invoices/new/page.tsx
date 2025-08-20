@@ -8,6 +8,7 @@ import { SubmitButton } from "@/components/SubmitButton";
 import { createAction } from "@/app/actions";
 import { useState, SyntheticEvent} from "react";
 import Form from "next/form";
+import Container from "@/components/Container";
 export default function Invoices() {
   const [state, setState] = useState("ready");
   const handleSubmit = async (event: SyntheticEvent) => {
@@ -18,7 +19,8 @@ export default function Invoices() {
     setState("pending");
   };
   return (
-    <main className=" flex flex-col gap-6 justify-center h-full sm:p-10 max-w-5xl mx-auto my-12">
+    <main className=" h-full sm:p-10 max-w-5xl mx-auto my-12">
+      <Container>
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold"> Create Invoices</h1>
       </div>
@@ -59,6 +61,7 @@ export default function Invoices() {
           <SubmitButton />
         </div>
       </Form>
+      </Container>
     </main>
   );
 }
