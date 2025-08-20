@@ -34,19 +34,19 @@ export default function Invoices() {
           <Label htmlFor="name" className="block mb-2 text-sm font-semibold">
             Billing Name
           </Label>
-          <Input name="name" id="name" type="text" />
+          <Input required name="name" id="name" type="text" />
         </div>
         <div>
           <Label htmlFor="email" className="block mb-2 text-sm font-semibold">
             Billing Email
           </Label>
-          <Input name="email" id="email" type="email" />
+          <Input required name="email" id="email" type="email" />
         </div>
         <div>
           <Label htmlFor="value" className=" block mb-2 text-sm font-semibold">
             Value
           </Label>
-          <Input name="value" id="value" type="text" />
+          <Input required name="value" id="value" type="text" />
         </div>
         <div>
           <Label
@@ -55,7 +55,7 @@ export default function Invoices() {
           >
             Description
           </Label>
-          <Textarea name="description" id="description"></Textarea>
+          <Textarea required name="description" id="description"></Textarea>
         </div>
         <div>
           <SubmitButton />
