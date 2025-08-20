@@ -19,9 +19,9 @@ export default function Invoices() {
     setState("pending");
   };
   return (
-    <main className=" h-full sm:p-10 max-w-5xl mx-auto my-12">
+    <main className=" h-full sm:p-10 max-w-5xl mx-auto">
       <Container>
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-6">
         <h1 className="text-3xl font-bold"> Create Invoices</h1>
       </div>
 

@@ -4,6 +4,7 @@ import { Invoices } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import Container from "@/components/Container";
 
 export default async function InvoicePage({
   params,
@@ -24,6 +25,7 @@ export default async function InvoicePage({
 
   return (
     <main className=" h-full  max-w-5xl mx-auto my-12">
+      <Container>
       <div className="flex justify-between mb-8">
         <h1 className="flex items-center gap-4 text-3xl font-bold">
           Invoice {invoiceId}
@@ -72,6 +74,7 @@ export default async function InvoicePage({
           <span>mogesbekel@gmail.com</span>
         </li>
       </ul>
+      </Container>
     </main>
   );
 }
