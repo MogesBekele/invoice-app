@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import Container from "@/components/Container";
+import { ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,24 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-const AVAILABLE_STATUSES = [
-  {
-    id: "open",
-    label: "Open",
-  },
-  {
-    id: "paid",
-    label: "Paid",
-  },
-  {
-    id: "void",
-    label: "Void",
-  },
-  {
-    id: "uncollectible",
-    label: "Uncollectible",
-  },
-];
+import { AVAILABLE_STATUSES } from "@/data/invoices";
+import { updateStatusAction } from "@/app/actions";
 
 export default async function InvoicePage({
   params,
@@ -38,7 +23,6 @@ export default async function InvoicePage({
   params: { invoiceId: string };
 }) {
   const invoiceId = parseInt(params.invoiceId);
-  
 
   const [result] = await db
     .select()
@@ -70,12 +54,18 @@ export default async function InvoicePage({
           </h1>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">Change Status</Button>
+              <Button className="flex items-center gap-2"  variant="outline">
+                Change Status 
+                <ChevronDown className="w-4 h-auto" /></Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               {AVAILABLE_STATUSES.map((status) => (
                 <DropdownMenuItem key={status.id}>
-                  {status.label}
+                  <form action={updateStatusAction}>
+                    <input type="hidden" name="id" value={invoiceId} />
+                    <input type="hidden" name="status" value={status.id} />
+                    <button>{status.label}</button>
+                  </form>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
