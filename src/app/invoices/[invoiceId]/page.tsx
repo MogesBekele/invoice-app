@@ -24,7 +24,7 @@ export default async function InvoicePage({
   }
 
   return (
-    <main className=" h-full  max-w-5xl mx-auto my-12">
+    <main className=" h-full mx-auto my-12">
       <Container>
       <div className="flex justify-between mb-8">
         <h1 className="flex items-center gap-4 text-3xl font-bold">
@@ -46,30 +46,30 @@ export default async function InvoicePage({
       <p className="text-3xl mb-3"> Birr {(result.value / 100).toFixed(2)}</p>
       <p className="text-lg mb-8">{result.description}</p>
 
-      <h2 className="font-bold text-lg mb-4">Billing Details</h2>
+      <h2 className="font-bold text-lg mb-4">Billing Details:</h2>
 
       <ul className="grid gap-2">
         <li className="flex gap-4 ">
           <strong className="block w-28 flex-shrink-0 font-medium text-sm">
-            Invoice ID
+            Invoice ID:
           </strong>
           <span>{result.id}</span>
         </li>
         <li className="flex gap-4 ">
           <strong className="block w-28 flex-shrink-0 font-medium text-sm">
-            Invoice Date
+            Invoice Date:
           </strong>
           <span>{new Date(result.createTs).toDateString()}</span>
         </li>
         <li className="flex gap-4 ">
           <strong className="block w-28 flex-shrink-0 font-medium text-sm">
-            Billing Name
+            Billing Name:
           </strong>
           <span>moges bekele</span>
         </li>
         <li className="flex gap-4 ">
           <strong className="block w-28 flex-shrink-0 font-medium text-sm">
-            Billing Email
+            Billing Email:
           </strong>
           <span>mogesbekel@gmail.com</span>
         </li>
