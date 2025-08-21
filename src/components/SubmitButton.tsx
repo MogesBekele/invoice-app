@@ -7,7 +7,7 @@ export const SubmitButton = () => {
   const { pending } = useFormStatus();
 console.log(pending)
   return (
-    <Button className=" relative w-full font-semibold">
+    <Button type="submit" className=" relative w-full font-semibold">
       <span className={pending ? "text-transparent" : ""}>Submit</span>
       {pending &&(
         <span className="flex items-center justify-center w-full h-full absolute text-gray-400">

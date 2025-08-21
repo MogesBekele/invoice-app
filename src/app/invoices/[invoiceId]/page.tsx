@@ -12,7 +12,7 @@ export default async function InvoicePage({
   params: { invoiceId: string };
 }) {
   const invoiceId = parseInt(params.invoiceId);
-  
+
   const [result] = await db
     .select()
     .from(Invoices)
@@ -24,8 +24,7 @@ export default async function InvoicePage({
   }
 
   return (
-    <main className=" h-full mx-auto my-12">
-      <Container>
+    <main className=" h-full max-w-5xl mx-auto my-12">
       <div className="flex justify-between mb-8">
         <h1 className="flex items-center gap-4 text-3xl font-bold">
           Invoice {invoiceId}
@@ -74,7 +73,6 @@ export default async function InvoicePage({
           <span>mogesbekel@gmail.com</span>
         </li>
       </ul>
-      </Container>
     </main>
   );
 }
