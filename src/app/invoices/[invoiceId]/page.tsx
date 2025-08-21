@@ -38,6 +38,7 @@ export default async function InvoicePage({
   params: { invoiceId: string };
 }) {
   const invoiceId = parseInt(params.invoiceId);
+  
 
   const [result] = await db
     .select()
