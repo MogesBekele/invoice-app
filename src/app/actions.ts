@@ -45,3 +45,21 @@ console.log('results', results)
 
 
 }
+
+
+export async function deleteAction(formData: FormData) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return;
+  }
+
+  const id = formData.get('id') as string;
+  if (!id) {
+    return;
+  }
+
+  const results = await db.delete(Invoices).where(eq(Invoices.id, parseInt(id)));
+
+  redirect(`/dashboard`)
+}
