@@ -18,7 +18,7 @@ export default async function InvoicePage({
     .innerJoin(Customers, eq(Customers.id, Invoices.customersId))
     .where(eq(Invoices.id, invoiceId))
     .limit(1);
-console.log("result", result);
+
   if (!result) {
     notFound();
   }

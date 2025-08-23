@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
 import { Check, CreditCard } from "lucide-react";
+import {  creaatePayment } from "@/app/actions";
 
 export default async function InvoicePage({
   params,
@@ -72,7 +73,8 @@ export default async function InvoicePage({
           <div>
             <h1 className="text-xl font-bold mb-4">Manage Invoice</h1>
             {invoice.status === "open" && (
-              <form action="">
+              <form action={creaatePayment}>
+                <input type="hidden" name="id" value={invoice.id} />
                 <Button className="flex gap-2 font-bold bg-green-700 hover:cursor-pointer hover:bg-green-500">
                   <CreditCard className="w-5 h-auto hover:cursor-pointer" />
                   Pay Invoice
@@ -80,9 +82,10 @@ export default async function InvoicePage({
               </form>
             )}
             {invoice.status === "paid" && (
-              <p className=" flex gap-2 text-xl font-bold">
+              <p className=" flex gap-2 items-center text-xl font-bold">
+                   <Check className='w-6 h-auto bg-green-500 text-white p-1 rounded-full' />
                 Invoice paid
-                <Check />
+             
               </p>
             )}
           </div>

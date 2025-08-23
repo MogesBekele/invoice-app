@@ -79,3 +79,30 @@ export async function deleteAction(formData: FormData) {
 
   redirect(`/dashboard`);
 }
+
+export async function creaatePayment(formData: FormData) {
+  const id=  parseInt(formData.get("id")as string);
+  const { userId } = await auth();
+
+  if (!userId) {
+    return;
+  }
+
+  if (!id) {
+    return;
+  }
+
+  const [results] = await db.select(
+    {
+      status: Invoices.status,
+      value: Invoices.value
+    }
+  )
+    .from(Invoices)
+    .where(eq(Invoices.id, id))
+    .limit(1)
+
+    console.log("results", results)
+
+  revalidatePath(`/invoices/${id}`, "page");
+}
