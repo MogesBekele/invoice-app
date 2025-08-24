@@ -81,7 +81,7 @@ export async function deleteAction(formData: FormData) {
 }
 
 export async function creaatePayment(formData: FormData) {
-  const id=  parseInt(formData.get("id")as string);
+  const id = parseInt(formData.get("id") as string);
   const { userId } = await auth();
 
   if (!userId) {
@@ -92,17 +92,16 @@ export async function creaatePayment(formData: FormData) {
     return;
   }
 
-  const [results] = await db.select(
-    {
+  const [results] = await db
+    .select({
       status: Invoices.status,
-      value: Invoices.value
-    }
-  )
+      value: Invoices.value,
+    })
     .from(Invoices)
     .where(eq(Invoices.id, id))
-    .limit(1)
+    .limit(1);
 
-    console.log("results", results)
+  console.log("results", results);
 
   revalidatePath(`/invoices/${id}`, "page");
 }
