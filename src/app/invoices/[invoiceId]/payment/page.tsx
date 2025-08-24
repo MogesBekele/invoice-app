@@ -8,6 +8,7 @@ import { eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
 import { Check, CreditCard } from "lucide-react";
 import { creaatePayment, updateStatusAction } from "@/app/actions";
+import { redirect } from "next/navigation";
 
 
 interface InvoiceProps{
@@ -19,6 +20,8 @@ export default async function InvoicePage({params, searchParams}
 :InvoiceProps) {
   const invoiceId = parseInt(params.invoiceId);
 
+  
+
   const isSuccess = searchParams.status ==='success';
   const isCanceled = searchParams.status ==='canceled'
 
@@ -28,6 +31,7 @@ export default async function InvoicePage({params, searchParams}
     formData.append('id', String(invoiceId))
     formData.append('status', 'paid')
     await updateStatusAction(formData)
+    redirect(`/invoices/${invoiceId}/payment`);
   }
 
   const [result] = await db
@@ -43,7 +47,7 @@ export default async function InvoicePage({params, searchParams}
     .innerJoin(Customers, eq(Customers.id, Invoices.customersId))
     .where(eq(Invoices.id, invoiceId))
     .limit(1);
-  console.log("result", result);
+ 
   if (!result) {
     notFound();
   }

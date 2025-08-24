@@ -59,7 +59,7 @@ export async function updateStatusAction(formData: FormData) {
     .where(eq(Invoices.id, parseInt(id)));
 
   revalidatePath(`/invoices/${id}`, "page");
-  console.log("results", results);
+  revalidatePath(`/invoices/${id}/payment`, "page");
 }
 
 export async function deleteAction(formData: FormData) {
@@ -82,7 +82,7 @@ export async function deleteAction(formData: FormData) {
 }
 export async function creaatePayment(formData: FormData) {
   const headerList = headers();
-  const origin = headerList.get("origin") ?? process.env.NEXT_PUBLIC_BASE_URL;
+  const origin = headerList.get("origin");
   const id = parseInt(formData.get("id") as string);
   const { userId } = await auth();
 
@@ -108,15 +108,17 @@ export async function creaatePayment(formData: FormData) {
   }
 
   const session = await stripe.checkout.sessions.create({
-    line_items: [{
-      price_data: {
-        currency: 'ETB',
-        product: 'prod_SvQLbNITNgvmyk',
-        unit_amount: results.value
+    line_items: [
+      {
+        price_data: {
+          currency: "ETB",
+          product: "prod_SvQLbNITNgvmyk",
+          unit_amount: results.value,
+        },
+        quantity: 1,
       },
-      quantity: 1,
-    }],
-    mode: 'payment',
+    ],
+    mode: "payment",
     success_url: `${origin}/invoices/${id}/payment?status=success`,
     cancel_url: `${origin}/invoices/${id}/payment?status=canceled`, // <-- fixed here
   });
