@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import Stripe from "stripe";
+import { headers } from "next/headers";
 
 const stripe = new Stripe(String(process.env.STRIPE_API_SECRET));
 export async function createAction(formData: FormData) {
@@ -79,8 +80,9 @@ export async function deleteAction(formData: FormData) {
 
   redirect(`/dashboard`);
 }
-
 export async function creaatePayment(formData: FormData) {
+  const headerList = headers();
+  const origin = headerList.get("origin") ?? process.env.NEXT_PUBLIC_BASE_URL;
   const id = parseInt(formData.get("id") as string);
   const { userId } = await auth();
 
@@ -101,7 +103,25 @@ export async function creaatePayment(formData: FormData) {
     .where(eq(Invoices.id, id))
     .limit(1);
 
-  console.log("results", results);
+  if (!results || !origin) {
+    return;
+  }
 
-  revalidatePath(`/invoices/${id}`, "page");
+  const session = await stripe.checkout.sessions.create({
+    line_items: [{
+      price_data: {
+        currency: 'birr',
+        product: 'prod_SvQLbNITNgvmyk',
+        unit_amount: results.value
+      },
+      quantity: 1,
+    }],
+    mode: 'payment',
+    success_url: `${origin}/invoices/${id}/payment?success=true`,
+    cancel_url: `${origin}/invoices/${id}/payment?canceled=true`, // <-- fixed here
+  });
+
+  if (!session.url) return;
+
+  redirect(session.url);
 }
