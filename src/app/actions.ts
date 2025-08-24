@@ -110,7 +110,7 @@ export async function creaatePayment(formData: FormData) {
   const session = await stripe.checkout.sessions.create({
     line_items: [{
       price_data: {
-        currency: 'birr',
+        currency: 'ETB',
         product: 'prod_SvQLbNITNgvmyk',
         unit_amount: results.value
       },

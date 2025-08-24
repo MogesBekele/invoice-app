@@ -110,7 +110,7 @@ export default async function Dashboard() {
                       href={`/invoices/${result.id}`}
                       className="font-semibold block p-4"
                     >
-                      Birr {(result.value / 100).toFixed(2)}
+                      ETB {(result.value / 100).toFixed(2)}
                     </Link>
                   </TableCell>
                 </TableRow>

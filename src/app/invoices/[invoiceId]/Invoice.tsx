@@ -108,7 +108,7 @@ export default function Invoice({ invoice }: InvoiceProps) {
         </div>
         <p className="text-3xl mb-3">
           {" "}
-          Birr {(invoice.value / 100).toFixed(2)}
+          ETB {(invoice.value / 100).toFixed(2)}
         </p>
         <p className="text-lg mb-8">{invoice.description}</p>
 
