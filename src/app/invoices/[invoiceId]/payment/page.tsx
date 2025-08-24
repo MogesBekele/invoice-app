@@ -1,22 +1,34 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import Container from "@/components/Container";
-
 import { Invoices, Customers } from "@/db/schema";
-
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
 import { Check, CreditCard } from "lucide-react";
-import {  creaatePayment } from "@/app/actions";
+import { creaatePayment, updateStatusAction } from "@/app/actions";
 
-export default async function InvoicePage({
-  params,
-}: {
-  params: { invoiceId: string };
-}) {
+
+interface InvoiceProps{
+
+  params: {invoiceId: string}
+  searchParams: {status: string};
+}
+export default async function InvoicePage({params, searchParams}
+:InvoiceProps) {
   const invoiceId = parseInt(params.invoiceId);
+
+  const isSuccess = searchParams.status ==='success';
+  const isCanceled = searchParams.status ==='canceled'
+
+  
+  if (isSuccess) {
+    const formData = new FormData();
+    formData.append('id', String(invoiceId))
+    formData.append('status', 'paid')
+    await updateStatusAction(formData)
+  }
 
   const [result] = await db
     .select({
@@ -83,9 +95,8 @@ export default async function InvoicePage({
             )}
             {invoice.status === "paid" && (
               <p className=" flex gap-2 items-center text-xl font-bold">
-                   <Check className='w-6 h-auto bg-green-500 text-white p-1 rounded-full' />
+                <Check className="w-6 h-auto bg-green-500 text-white p-1 rounded-full" />
                 Invoice paid
-             
               </p>
             )}
           </div>
