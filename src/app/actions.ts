@@ -81,7 +81,7 @@ export async function deleteAction(formData: FormData) {
   redirect(`/dashboard`);
 }
 export async function creaatePayment(formData: FormData) {
-  const headerList = headers();
+  const headerList = await headers();
   const origin = headerList.get("origin");
   const id = parseInt(formData.get("id") as string);
   const { userId } = await auth();

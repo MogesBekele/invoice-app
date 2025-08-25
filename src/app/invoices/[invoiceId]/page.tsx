@@ -4,15 +4,10 @@ import { Invoices } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import Invoice from "./Invoice";
 import { Customers } from "@/db/schema";
-
-interface InvoicePageProps {
-  params: {
-    invoiceId: string;
-  };
-}
-
-export default async function InvoicePage({ params }: InvoicePageProps) {
-  const invoiceId = parseInt(params.invoiceId);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function InvoicePage({ params }: any) {
+  const resolvedParams = params instanceof Promise ? await params : params;
+  const invoiceId = parseInt(resolvedParams.invoiceId);
 
   const [result] = await db
     .select()
@@ -21,14 +16,9 @@ export default async function InvoicePage({ params }: InvoicePageProps) {
     .where(eq(Invoices.id, invoiceId))
     .limit(1);
 
-  if (!result) {
-    notFound();
-  }
+  if (!result) notFound();
 
-  const invoice = {
-    ...result.invoices,
-    customer: result.customers,
-  };
+  const invoice = { ...result.invoices, customer: result.customers };
 
   return <Invoice invoice={invoice} />;
 }

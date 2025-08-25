@@ -11,26 +11,23 @@ import { creaatePayment, updateStatusAction } from "@/app/actions";
 import { redirect } from "next/navigation";
 
 
-interface InvoiceProps{
 
-  params: {invoiceId: string}
-  searchParams: {status: string};
-}
-export default async function InvoicePage({params, searchParams}
-:InvoiceProps) {
-  const invoiceId = parseInt(params.invoiceId);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function InvoicePage({ params, searchParams }: any) {
+  const resolvedParams = params instanceof Promise ? await params : params;
+  const resolvedSearch = searchParams instanceof Promise ? await searchParams : searchParams;
 
-  
+  const invoiceId = parseInt(resolvedParams.invoiceId);
+  const status = resolvedSearch.status;
 
-  const isSuccess = searchParams.status ==='success';
-  const isCanceled = searchParams.status ==='canceled'
+  const isSuccess = status === 'success';
+  const isCanceled = status === 'canceled';
 
-  
   if (isSuccess) {
     const formData = new FormData();
-    formData.append('id', String(invoiceId))
-    formData.append('status', 'paid')
-    await updateStatusAction(formData)
+    formData.append('id', String(invoiceId));
+    formData.append('status', 'paid');
+    await updateStatusAction(formData);
     redirect(`/invoices/${invoiceId}/payment`);
   }
 
@@ -47,16 +44,12 @@ export default async function InvoicePage({params, searchParams}
     .innerJoin(Customers, eq(Customers.id, Invoices.customersId))
     .where(eq(Invoices.id, invoiceId))
     .limit(1);
- 
-  if (!result) {
-    notFound();
-  }
+
+  if (!result) notFound();
 
   const invoice = {
     ...result,
-    customer: {
-      name: result.name,
-    },
+    customer: { name: result.name },
   };
 
   return (
