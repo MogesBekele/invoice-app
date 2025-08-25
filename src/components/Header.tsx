@@ -7,7 +7,7 @@ const Header = () => {
     <header className="mb-10">
     <Container>
     <div className="flex justify-between p-6 items-center">
-      <Link href="/" className="text-2xl font-semibold text-center">
+      <Link href="/" className="text-2xl font-semibold text-center hover:cursor-pointer">
         Invoicing-app
       </Link>
 
