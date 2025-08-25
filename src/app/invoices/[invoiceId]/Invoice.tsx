@@ -43,7 +43,7 @@ export default function Invoice({ invoice }: InvoiceProps) {
   return (
     <main className=" h-full w-full">
       <Container>
-        <div className="flex justify-between mb-8">
+        <div className="flex sm:justify-between gap-6 mb-8">
           <h1 className="flex items-center gap-4 text-3xl font-bold">
             Invoice {invoice.id}
             <Badge
@@ -58,7 +58,7 @@ export default function Invoice({ invoice }: InvoiceProps) {
               {currentStatus}
             </Badge>
           </h1>
-          <div className="flex gap-4">
+          <div className="flex gap-2 max-sm:flex-col">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2" variant="outline">
