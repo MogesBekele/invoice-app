@@ -5,11 +5,13 @@ import { eq } from "drizzle-orm";
 import Invoice from "./Invoice";
 import { Customers } from "@/db/schema";
 
-export default async function InvoicePage({
-  params,
-}: {
-  params: { invoiceId: string };
-}) {
+interface InvoicePageProps {
+  params: {
+    invoiceId: string;
+  };
+}
+
+export default async function InvoicePage({ params }: InvoicePageProps) {
   const invoiceId = parseInt(params.invoiceId);
 
   const [result] = await db
@@ -23,12 +25,10 @@ export default async function InvoicePage({
     notFound();
   }
 
-  const invoice={
+  const invoice = {
     ...result.invoices,
-    customer: result.customers
-  }
+    customer: result.customers,
+  };
 
-  return (
- <Invoice invoice={invoice}/>
-  );
+  return <Invoice invoice={invoice} />;
 }
