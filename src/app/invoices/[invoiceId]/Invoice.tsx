@@ -23,13 +23,12 @@ interface InvoiceProps {
   invoice: typeof Invoices.$inferSelect & {
     customer: typeof Customers.$inferSelect;
   };
-}
+}// ...existing imports...
+
 export default function Invoice({ invoice }: InvoiceProps) {
   const [currentStatus, setCurrentStatus] = useOptimistic(
     invoice.status,
-    (state, newStatus) => {
-      return String(newStatus);
-    }
+    (state, newStatus) => String(newStatus)
   );
   async function handleUpdateStatus(formData: FormData) {
     const originalCurrentStatus = currentStatus;
@@ -41,14 +40,15 @@ export default function Invoice({ invoice }: InvoiceProps) {
     }
   }
   return (
-    <main className=" h-full w-full">
+    <main className="h-full w-full">
       <Container>
-        <div className="flex sm:justify-between gap-6 mb-8">
-          <h1 className="flex items-center gap-4 text-3xl font-bold">
+        {/* Responsive header & actions */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mb-8">
+          <h1 className="flex items-center gap-4 text-2xl sm:text-3xl font-bold">
             Invoice {invoice.id}
             <Badge
               className={cn(
-                `rounded-full capitalize`,
+                "rounded-full capitalize",
                 currentStatus === "open" && "bg-blue-500",
                 currentStatus === "paid" && "bg-green-600",
                 currentStatus === "void" && "bg-zinc-500",
@@ -58,7 +58,7 @@ export default function Invoice({ invoice }: InvoiceProps) {
               {currentStatus}
             </Badge>
           </h1>
-          <div className="flex gap-2 max-sm:flex-col">
+          <div className="flex gap-2 flex-col sm:flex-row w-fit self-start sm:w-auto sm:self-auto">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2" variant="outline">
@@ -106,34 +106,32 @@ export default function Invoice({ invoice }: InvoiceProps) {
             </DropdownMenu>
           </div>
         </div>
-        <p className="text-3xl mb-3">
-          {" "}
+        <p className="text-xl sm:text-3xl mb-3">
           ETB {(invoice.value / 100).toFixed(2)}
         </p>
-        <p className="text-lg mb-8">{invoice.description}</p>
+        <p className="text-base sm:text-lg mb-8">{invoice.description}</p>
 
         <h2 className="font-bold text-lg mb-4">Billing Details:</h2>
-
         <ul className="grid gap-2">
-          <li className="flex gap-4 ">
+          <li className="flex gap-2">
             <strong className="block w-28 flex-shrink-0 font-medium text-sm">
               Invoice ID:
             </strong>
             <span>{invoice.id}</span>
           </li>
-          <li className="flex gap-4 ">
+          <li className="flex  gap-2">
             <strong className="block w-28 flex-shrink-0 font-medium text-sm">
               Invoice Date:
             </strong>
             <span>{new Date(invoice.createTs).toDateString()}</span>
           </li>
-          <li className="flex gap-4 ">
+          <li className="flex  gap-2">
             <strong className="block w-28 flex-shrink-0 font-medium text-sm">
               Billing Name:
             </strong>
             <span>{invoice.customer.name}</span>
           </li>
-          <li className="flex gap-4 ">
+          <li className="flex  gap-2">
             <strong className="block w-28 flex-shrink-0 font-medium text-sm">
               Billing Email:
             </strong>
