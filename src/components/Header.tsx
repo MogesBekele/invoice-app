@@ -27,13 +27,13 @@ const Header = () => {
             <SignedOut>
               {isMobile ? (
                 <Link href="/sign-in">
-                  <button className="px-2 py-1 bg-cyan-600 text-white rounded">
+                  <button className="px-2 py-1 bg-gray-800 text-white rounded">
                     Sign In
                   </button>
                 </Link>
               ) : (
                 <SignInButton mode="modal">
-                  <button className="px-2 py-1 bg-cyan-600 text-white rounded">
+                  <button className="px-2 py-1 bg-gray-800 text-white rounded">
                     Sign In
                   </button>
                 </SignInButton>
