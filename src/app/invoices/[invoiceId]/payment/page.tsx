@@ -108,15 +108,15 @@ export default async function InvoicePage({ params, searchParams }: any) {
         {/* Billing Details */}
         <h2 className="font-bold text-lg md:text-xl mb-4">Billing Details:</h2>
         <ul className="grid gap-3">
-          <li className="flex gap-2 sm:gap-4">
+          <li className="flex gap-2 ">
             <strong className="w-32 font-medium text-sm">Invoice ID:</strong>
             <span>{invoice.id}</span>
           </li>
-          <li className="flex gap-2 sm:gap-4">
+          <li className="flex gap-2 ">
             <strong className="w-32 font-medium text-sm">Invoice Date:</strong>
             <span>{new Date(invoice.createTs).toDateString()}</span>
           </li>
-          <li className="flex  gap-2 sm:gap-4">
+          <li className="flex  gap-2 ">
             <strong className="w-32 font-medium text-sm">Billing Name:</strong>
             <span>{invoice.customer.name}</span>
           </li>
