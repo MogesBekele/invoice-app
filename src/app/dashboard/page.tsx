@@ -151,7 +151,7 @@ export default async function Dashboard() {
                       {result.status}
                     </Badge>
                     {/* 👉 This shows they can click */}
-                    <span className="text-gray-400 ">›</span>
+                    <span className="text-gray-900 ">›</span>
                   </div>
                 </div>
                 <div className="text-sm text-gray-500 mb-1">
