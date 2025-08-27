@@ -27,8 +27,8 @@ export default async function Dashboard() {
   const results = await db
     .select()
     .from(Invoices)
-    .innerJoin(Customers, eq(Customers.id, Invoices.customersId))
-   // .where(eq(Invoices.userId, userId));
+    .innerJoin(Customers, eq(Customers.id, Invoices.customersId));
+  // .where(eq(Invoices.userId, userId));
 
   const invoices = results?.map(({ invoices, customers }) => {
     return {
@@ -134,21 +134,25 @@ export default async function Dashboard() {
               <Link
                 key={result.id}
                 href={`/invoices/${result.id}`}
-                className="block bg-white rounded-lg shadow p-4"
+                className="block bg-white rounded-lg shadow p-4 hover:bg-gray-50 transition"
               >
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-semibold">{result.customer.name}</span>
-                  <Badge
-                    className={cn(
-                      `rounded-full capitalize`,
-                      result.status === "open" && "bg-blue-500",
-                      result.status === "paid" && "bg-green-600",
-                      result.status === "void" && "bg-zinc-500",
-                      result.status === "uncollectible" && "bg-red-500"
-                    )}
-                  >
-                    {result.status}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      className={cn(
+                        `rounded-full capitalize`,
+                        result.status === "open" && "bg-blue-500",
+                        result.status === "paid" && "bg-green-600",
+                        result.status === "void" && "bg-zinc-500",
+                        result.status === "uncollectible" && "bg-red-500"
+                      )}
+                    >
+                      {result.status}
+                    </Badge>
+                    {/* 👉 This shows they can click */}
+                    <span className="text-gray-400 ">›</span>
+                  </div>
                 </div>
                 <div className="text-sm text-gray-500 mb-1">
                   {result.customer.email}
