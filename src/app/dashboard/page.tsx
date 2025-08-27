@@ -16,19 +16,19 @@ import { db } from "@/db";
 import { eq } from "drizzle-orm";
 import { Invoices, Customers } from "@/db/schema";
 import Container from "@/components/Container";
-import { auth } from "@clerk/nextjs/server";
+//import { auth } from "@clerk/nextjs/server";
 
 export default async function Dashboard() {
-  const { userId } = await auth();
+  // const { userId } = await auth();
 
-  if (!userId) {
-    return;
-  }
+  // if (!userId) {
+  //   return;
+  // }
   const results = await db
     .select()
     .from(Invoices)
     .innerJoin(Customers, eq(Customers.id, Invoices.customersId))
-    .where(eq(Invoices.userId, userId));
+   // .where(eq(Invoices.userId, userId));
 
   const invoices = results?.map(({ invoices, customers }) => {
     return {
