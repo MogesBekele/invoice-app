@@ -90,7 +90,7 @@ export default async function InvoicePage({ params, searchParams }: any) {
             {invoice.status === "open" && (
               <form action={creaatePayment} className="w-full">
                 <input type="hidden" name="id" value={invoice.id} />
-                <Button className="flex w-full md:w-auto justify-center items-center gap-2 font-bold bg-green-700 hover:bg-green-500">
+                <Button className="flex justify-center items-center gap-2 font-bold bg-green-700 hover:bg-green-500">
                   <CreditCard className="w-5 h-5" />
                   Pay Invoice
                 </Button>
