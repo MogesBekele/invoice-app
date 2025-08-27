@@ -5,7 +5,6 @@ import Container from "@/components/Container";
 import { ChevronDown, CreditCard } from "lucide-react";
 import { Invoices, Customers } from "@/db/schema";
 import { Trash2 } from "lucide-react";
-import { Ellipsis } from "lucide-react";
 import { useOptimistic } from "react";
 import {
   DropdownMenu,
@@ -81,8 +80,8 @@ export default function Invoice({ invoice }: InvoiceProps) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2" variant="outline">
-                  <span className="sr-only">More Options</span>
-                  <Ellipsis className="w-4 h-auto" />
+                  <span>More Options</span>
+                <ChevronDown className="w-4 h-auto" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
